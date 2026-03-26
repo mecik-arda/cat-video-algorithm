@@ -38,10 +38,8 @@ pip install pillow pygame requests
 ## Installation & Setup
 
     Clone the repository:
-    ```
     git clone https://github.com/mecik-arda/cat-video-algorithm.git
     cd cat-video-algorithm
-    ```
 
     Run the application:
 
