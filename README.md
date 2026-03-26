@@ -1,72 +1,65 @@
-Paw Session
+# Paw Session v2.6
 
-Paw Session is a Python-based desktop application designed to provide a centralized hub for cat-related media content. It features a dynamic Nyan Cat border animation, integrated YouTube video fetching, and a standardized image delivery system. The application is optimized for high-resolution displays and includes features such as persistent theme management and interactive UI elements.
-Technical Specifications
-Border Animation Engine
+Paw Session is a professional, Python-based desktop application designed as a high-performance hub for cat-related media. Optimized for high-resolution displays (like the ASUS Zenbook S 14 OLED), it features advanced API integration, multi-threaded animations, and a customizable user experience.
 
-The application utilizes a multi-threaded animation loop that handles a local GIF asset. To maintain visual consistency, the GIF is pre-processed into four directional frame sets (Right, Down, Left, Up) using the Pillow library. The animation logic calculates window boundaries to rotate the sprite and its orientation at each corner of the application frame.
-Visual Effects and UI
+---
 
-    RGB Title Rendering: The application includes a high-frequency color cycling algorithm for the main header, utilizing a custom RGB color palette to demonstrate display color accuracy.
+## Key Features
 
-    Standardized Media Feed: All external image assets are processed through ImageOps.fit to a fixed 400x300 resolution using Lanczos resampling. This ensures a stable UI layout regardless of the source image's aspect ratio.
+* **YouTube Data API v3 Integration:** Real-time cat video summoning with advanced search algorithms (Popular, Recent, Random).
+* **Setup Wizard:** An intuitive first-launch experience that guides users through API configuration.
+* **Ghost Mode (Nyan Opacity):** Adjustable transparency for the Nyan Cat border animation, perfect for OLED eye-comfort.
+* **ASCII Art Library:** Choose between different cat-themed ASCII styles (Classic, Grumpy, Minimal) directly from settings.
+* **Real-time System Logs:** Live monitoring of API requests, blacklist filters, and asset delivery.
+* **Multi-Language Support:** Full UI localization for **English (EN)**, **Turkish (TR)**, and **German (DE)**.
+* **Theme Management:** Persistent Dark/Light mode synchronization via `settings.json`.
 
-    Interactive Components: Buttons feature dynamic event binding for hover states and integrated audio feedback via the Pygame mixer module.
+---
 
-Network and Persistence
+## Technical Specifications
 
-    Asset Management: Uses local GIF assets to ensure functionality in restricted network environments such as Eduroam or behind strict firewalls.
+### Animation Engine
+Utilizes a **multi-threaded loop** to process local GIF assets. The engine pre-calculates window boundaries to rotate the Nyan Cat sprite and its orientation at each corner of the application frame, ensuring zero-lag UI performance.
 
-    State Persistence: Theme preferences (Dark/Light mode) are stored in a local settings.json file and loaded during the class initialization.
+### Visual & Audio Effects
+* **RGB Title Rendering:** High-frequency color cycling algorithm for the main header, optimized for high-refresh-rate displays.
+* **Standardized Media Feed:** Remote assets are processed using `ImageOps.fit` with **Lanczos resampling** to maintain a fixed 400x300 layout.
+* **Pygame Mixer:** Integrated low-latency audio feedback for interactive components.
 
-Dependencies
+---
 
-The following Python libraries are required to run the application:
+## Dependencies
 
-    Pillow (PIL): For advanced image processing, GIF sequencing, and frame rotation.
+Ensure you have Python 3.x installed. The following libraries are required:
 
-    Pygame: For handling audio streams and meow sound effects.
+```
+pip install pillow pygame requests
+```
+## Installation & Setup
 
-    Requests: For fetching remote cat images and YouTube metadata.
+    Clone the repository:
+    ```
+    git clone https://github.com/mecik-arda/cat-video-algorithm.git
+    cd cat-video-algorithm
+    ```
 
-    Tkinter: For the core graphical user interface.
-
-Installation
-
-    Clone the repository to your local machine:
-    Bash
-
-    git clone https://github.com/ardamecik/paw-session.git
-    cd paw-session
-
-    Install the necessary dependencies:
-    Bash
-
-    pip install pillow pygame requests
-
-    Ensure the following files are present in the root directory:
-
-        hub_launcher.py (Main entry point)
-
-        catyy.py (API helper module)
-
-        nyan-cat.gif (Local animation file)
-
-        cat.ico (Application icon)
-
-    Execute the application:
-    Bash
+    Run the application:
 
     python hub_launcher.py
 
-Usage
+    API Configuration:
+    On the first launch, follow the Setup Wizard instructions to obtain and activate your YouTube Data API v3 key.
 
-    Summon Video: Triggers a browser-based redirect to a trending cat video via the YouTube API.
+## Project Structure
 
-    Daily Goofy Dose: Requests a random image from a cat API, processes it to the standard resolution, and updates the display.
+    hub_launcher.py: Main entry point containing the core logic and UI.
 
-    Theme Toggle: Switches between Light and Dark themes, updating the UI colors and saving the state for future sessions.
+    catyy.py: API helper module for YouTube and Image fetching.
 
-License
+    settings.json: Local storage for user preferences and API credentials.
 
-This project is developed for educational purposes as part of a Computer Engineering portfolio.
+    nyan-cat.gif: Core animation asset.
+
+## License
+
+Developed for educational purposes as part of a Computer Engineering portfolio. Created by Arda Meçik.
