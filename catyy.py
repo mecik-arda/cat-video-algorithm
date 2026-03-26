@@ -1,43 +1,46 @@
-import webbrowser
 import requests
+import webbrowser
 import random
 import io
-from PIL import Image, ImageTk
+from PIL import Image
 
-API_KEY = "API_Key"
-
-def fetch_popular_cat_video():
-    base_url = "https://www.googleapis.com/youtube/v3/search"
-    params = {
-        "part": "snippet",
-        "maxResults": 50,
-        "q": "#cat", 
-        "order": "viewCount",
-        "type": "video",
-        "key": API_KEY
-    }
+def fetch_popular_cat_video(api_key, query="#cat", algo="Popular"):
     try:
-        response = requests.get(base_url, params=params, timeout=10)
-        data = response.json()
-        if "items" in data:
-            video = random.choice(data["items"])
-            return {"id": video["id"]["videoId"]}
-        return None
+        search_url = "https://www.googleapis.com/youtube/v3/search"
+        params = {
+            "part": "snippet",
+            "q": query,
+            "maxResults": 25,
+            "type": "video",
+            "relevanceLanguage": "en",
+            "order": "viewCount" if algo == "Popular" else "date",
+            "key": api_key
+        }
+        r = requests.get(search_url, params=params, timeout=5)
+        if r.status_code == 200:
+            items = r.json().get("items", [])
+            if items:
+                video = random.choice(items)
+                return {
+                    "id": video["id"]["videoId"],
+                    "title": video["snippet"]["title"]
+                }
+        elif r.status_code == 403:
+            return {"id": "dQw4w9WgXcQ", "title": "Quota Exceeded"}
     except:
-        return None
+        pass
+    return {"id": "dQw4w9WgXcQ", "title": "Default Video"}
 
 def fetch_cat_image():
     try:
-        url = "https://api.thecatapi.com/v1/images/search?limit=1"
-        response = requests.get(url, timeout=10)
-        data = response.json()
-        img_url = data[0]['url']
-        img_data = requests.get(img_url, timeout=10).content
-        img = Image.open(io.BytesIO(img_data))
-        img.thumbnail((450, 450), Image.Resampling.LANCZOS)
-        return img
+        r = requests.get("https://api.thecatapi.com/v1/images/search", timeout=5)
+        if r.status_code == 200:
+            img_url = r.json()[0]['url']
+            img_res = requests.get(img_url, timeout=5)
+            return Image.open(io.BytesIO(img_res.content))
     except:
-        return None
+        pass
+    return None
 
 def open_video_in_browser(video_id):
     webbrowser.open(f"https://www.youtube.com/watch?v={video_id}")
