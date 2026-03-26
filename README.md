@@ -1,6 +1,6 @@
 # Paw Session v2.6
 
-Paw Session is a professional, Python-based desktop application designed as a high-performance hub for cat-related media. Optimized for high-resolution displays (like the ASUS Zenbook S 14 OLED), it features advanced API integration, multi-threaded animations, and a customizable user experience.
+Paw Session is a professional, Python-based desktop application designed as a high-performance hub for cat-related media. Optimized for high-resolution displays, it features advanced API integration, multi-threaded animations, and a customizable user experience.
 
 ---
 
